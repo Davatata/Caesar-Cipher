@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 		<title>Caesar Cipher</title>
 	</head>
 
@@ -16,7 +17,7 @@
 		</div>
 		<div style="width:350px; height: 40px;">
 			<p style="width:40%; float: left; margin: 15px 0 15px 0;">Key Rotation: </p>
-			<select style="width:30%; float: left; margin: 15px 0 15px 0;">
+			<select id="key" style="width:30%; float: left; margin: 15px 0 15px 0;">
 				<option value="0">0</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
@@ -50,6 +51,43 @@
 			<button>Encrypt</button>
 			<button>Decrypt</button>
 		</div>
+
+
+		<script type="text/javascript">
+			// Create array to hold alphabet. 
+			// alph[0]  = 'a'
+			// alph[25] = 'z'
+			var alph = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+			
+
+
+			function encryptText(){
+				// we get the rotation key, get the text to encrypt, and put into an array
+				var key = $('#key').val();
+				var text = $('#unencrypted').val();
+				var arr = text.split('');
+
+				
+			}
+
+			// Update the Encrypted textarea
+			function setEncrypted(s){
+				$('#encrypted').val(s);
+			}
+
+			// Update the Unencrypted textarea
+			function setUnencrypted(s){
+				$('#unencrypted').val(s);
+			}
+
+			// Clear both textareas
+			function clearAreas(){
+				$('#unencrypted').val('');
+				$('#encrypted').val('');
+			}
+
+		</script>
 	</body>
 
 </html>
