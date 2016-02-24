@@ -64,7 +64,7 @@
 			// we get the rotation key, get the text to encrypt, and put into an array
 			function encryptText(){
 				
-				var text = $('#unencrypted').val().trim();
+				var text = $('#unencrypted').val().trim().toLowerCase();
 				
 				if(text == ''){}
 				else{
@@ -98,7 +98,7 @@
 			}
 
 			function decryptText(){
-				var text = $('#encrypted').val().trim();
+				var text = $('#encrypted').val().trim().toLowerCase();
 				
 				if(text == ''){}
 				else{
