@@ -97,6 +97,40 @@
 				}
 			}
 
+			function decryptText(){
+				var text = $('#encrypted').val().trim();
+				
+				if(text == ''){}
+				else{
+					var key = Number($('#key').val());
+					var arr = text.split('');
+					var ans = '';
+					console.log(arr);
+
+					for(var i = 0; i<arr.length; i++){
+						if(isALetter(arr[i])){
+							var index = alph.indexOf(arr[i]);
+							if(index - key < 0){
+								index = index + 26 - key;
+								console.log(index);
+							}
+							else{
+								index = index - key;
+							}
+
+							ans = ans + alph[index];
+						}
+						else{
+							ans = ans + arr[i];
+						}
+						
+					}
+
+					setUnencrypted(ans);
+
+				}
+			}
+
 			function isALetter(charVal)
 			{
 			    if( charVal.toUpperCase() != charVal.toLowerCase() )
