@@ -48,8 +48,8 @@
 		</div>
 		<br/>
 		<div style="width:350px;">
-			<button>Encrypt</button>
-			<button>Decrypt</button>
+			<button onclick="encryptText()">Encrypt</button>
+			<button onclick="decryptText()">Decrypt</button>
 		</div>
 
 
@@ -61,14 +61,48 @@
 
 			
 
-
+			// we get the rotation key, get the text to encrypt, and put into an array
 			function encryptText(){
-				// we get the rotation key, get the text to encrypt, and put into an array
-				var key = $('#key').val();
-				var text = $('#unencrypted').val();
-				var arr = text.split('');
-
 				
+				var text = $('#unencrypted').val().trim();
+				
+				if(text == ''){}
+				else{
+					var key = Number($('#key').val());
+					var arr = text.split('');
+					var ans = '';
+					console.log(arr);
+
+					for(var i = 0; i<arr.length; i++){
+						if(isALetter(arr[i])){
+							var index = alph.indexOf(arr[i]);
+							if(index+key > 25){
+								index = index + key - 26;
+								console.log(index);
+							}
+							else{
+								index = index + key;
+							}
+
+							ans = ans + alph[index];
+						}
+						else{
+							ans = ans + arr[i];
+						}
+						
+					}
+
+					setEncrypted(ans);
+
+				}
+			}
+
+			function isALetter(charVal)
+			{
+			    if( charVal.toUpperCase() != charVal.toLowerCase() )
+			       return true;
+			    else
+			       return false;
 			}
 
 			// Update the Encrypted textarea
