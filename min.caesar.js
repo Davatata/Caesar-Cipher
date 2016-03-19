@@ -14,7 +14,6 @@ function encryptText(){
 	if(text == ''){}
 	else{
 		var key = Number($('#key').val());
-		console.log(key);
 		var arr = text.split('');
 		var ans = '';
 		console.log(arr);
@@ -31,6 +30,7 @@ function encryptText(){
 				}
 
 				ans = ans + alph[index];
+				ans = ans.toUpperCase();
 			}
 			else{
 				ans = ans + arr[i];
@@ -65,6 +65,7 @@ function decryptText(){
 				}
 
 				ans = ans + alph[index];
+				ans = ans.toUpperCase();
 			}
 			else{
 				ans = ans + arr[i];
