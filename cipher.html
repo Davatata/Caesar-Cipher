@@ -1,172 +1,116 @@
 <!--
-Decrypt and encrypt messages with a rotation key.
-we imported clipboard.js so that we can copy/cut text from the textareas
- 2/23//2016
- Created by David T.
+
+	Caesar Cipher 
+
+	2/23/2016
+	Created by David T.
+	
+	Decrypt and encrypt messages with a rotation key.
+	We imported clipboard.js so that we can copy/cut text from the textareas.
+	
 -->
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<script src="clipboard.js-master/clipboard.js-master/dist/clipboard.min.js"></script>
-		<title>Caesar Cipher</title>
-	</head>
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Caesar Cipher</title>
+        <link rel="stylesheet" href="foundation-6/css/foundation.css" />
+    </head>
 
 	<body style="padding: 10px;">
-		<div style="width:350px;">
-			<p>Unencrypted</p>
-			<textarea id="unencrypted" style="resize: none; height: 100px; width:250px;"></textarea>
-			<button class="btn" data-clipboard-action="cut" data-clipboard-target="#unencrypted">Cut to clipboard</button>
-		</div>
-		<div style="width:350px;">
-			<p>Encrypted</p>
-			<textarea id="encrypted" style="resize: none; height: 100px; width: 250px;"></textarea>
-			<button class="btn" data-clipboard-action="cut" data-clipboard-target="#encrypted">Cut to clipboard</button>
-		</div>
-		<div style="width:350px; height: 40px;">
-			<p style="width:40%; float: left; margin: 15px 0 15px 0;">Key Rotation: </p>
-			<select id="key" style="width:30%; float: left; margin: 15px 0 15px 0;">
-				<option value="0">0</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-				<option value="11">11</option>
-				<option value="12">12</option>
-				<option value="13">13</option>
-				<option value="14">14</option>
-				<option value="15">15</option>
-				<option value="16">16</option>
-				<option value="17">17</option>
-				<option value="18">18</option>
-				<option value="19">19</option>
-				<option value="20">20</option>
-				<option value="21">21</option>
-				<option value="22">22</option>
-				<option value="23">23</option>
-				<option value="24">24</option>
-				<option value="25">25</option>
-			</select>
-		</div>
-		<br/>
-		<div style="width:350px;">
-			<button onclick="encryptText()">Encrypt</button>
-			<button onclick="decryptText()">Decrypt</button>
-		</div>
+		
 
 
-		<script type="text/javascript">
-			// Create array to hold alphabet. 
-			// alph[0]  = 'a'
-			// alph[25] = 'z'
-			var alph = 'abcdefghijklmnopqrstuvwxyz'.split('');
-			new Clipboard('.btn');
-			
+		<div class="row" style="padding-top: 2%;">
+            <div class="small-12  columns">
+                <h1>Caesar Encryption</h1>
+            </div>
+        </div>
 
-			// we get the rotation key, get the text to encrypt, and put into an array
-			function encryptText(){
-				
-				var text = $('#unencrypted').val().trim().toLowerCase();
-				
-				if(text == ''){}
-				else{
-					var key = Number($('#key').val());
-					var arr = text.split('');
-					var ans = '';
-					console.log(arr);
+        <div class="row">
+            <div class="large-6 medium-6 small-12 columns">
+                <div class="row">
+                    <div class="large-12 columns">
+                      <label>Unencrypted
+                        <textarea id="unencrypted" placeholder="Text to be encrypted" style="height:75px" ></textarea>
+                      </label>
+                    </div>
+                    <div class="large-6  small-6  columns">
+                        <button  class="button  expand" onclick="encryptText()">Encrypt</button>
+                    </div>
+                    <div class="large-6  small-6  columns">
+                        <button  class="btn button expand alert" data-clipboard-action="cut" data-clipboard-target="#unencrypted" style="float:right;">Cut / Copy</button>
+                    </div>
+                </div>
+            </div>
 
-					for(var i = 0; i<arr.length; i++){
-						if(isALetter(arr[i])){
-							var index = alph.indexOf(arr[i]);
-							if(index+key > 25){
-								index = index + key - 26;
-								console.log(index);
-							}
-							else{
-								index = index + key;
-							}
+            <div class="large-6 medium-6 small-12 columns">
+                <div class="row ">
+                    <div class="large-12 columns">
+                      <label>Encrypted
+                        <textarea id="encrypted" placeholder="Text to be decrypted" style="height:75px" ></textarea>
+                      </label>
+                    </div>
+                    <div class="large-6  small-6  columns">
+                        <button class="button  expand" onclick="decryptText()">Decrypt</button>
+                    </div>
+                    <div class="large-6  small-6  columns ">
+                        <button class="btn button expand alert" data-clipboard-action="cut" data-clipboard-target="#encrypted" style="float:right;">Cut / Copy</button>
+                    </div>
+                </div>
+            </div>
 
-							ans = ans + alph[index];
-						}
-						else{
-							ans = ans + arr[i];
-						}
-						
-					}
+            <div class="small-12 columns">
+                <div class="row">
+				    <div class="large-12 columns">
+				      <label>Key Rotation
+				        <select id="key">
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+							<option value="13">13</option>
+							<option value="14">14</option>
+							<option value="15">15</option>
+							<option value="16">16</option>
+							<option value="17">17</option>
+							<option value="18">18</option>
+							<option value="19">19</option>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+							<option value="24">24</option>
+							<option value="25">25</option>
+				        </select>
+				      </label>
+				    </div>
+				  </div>
+            </div>
+        </div>
+        <br/><br/>
 
-					setEncrypted(ans);
+		<script src="clipboard.min.js"></script>
+        <script src="min.caesar.js"></script>
+        <script src="foundation-6/js/vendor/jquery.min.js"></script>
+        <script src="foundation-6/js/vendor/what-input.min.js"></script>
+        <script src="foundation-6/js/foundation.min.js"></script>
+        <script>
+            $(document).foundation();
+        </script>
 
-				}
-			}
-
-			function decryptText(){
-				var text = $('#encrypted').val().trim().toLowerCase();
-				
-				if(text == ''){}
-				else{
-					var key = Number($('#key').val());
-					var arr = text.split('');
-					var ans = '';
-					console.log(arr);
-
-					for(var i = 0; i<arr.length; i++){
-						if(isALetter(arr[i])){
-							var index = alph.indexOf(arr[i]);
-							if(index - key < 0){
-								index = index + 26 - key;
-								console.log(index);
-							}
-							else{
-								index = index - key;
-							}
-
-							ans = ans + alph[index];
-						}
-						else{
-							ans = ans + arr[i];
-						}
-						
-					}
-
-					setUnencrypted(ans);
-
-				}
-			}
-
-			// checks if a character is a letter or not
-			function isALetter(charVal)
-			{
-			    if( charVal.toUpperCase() != charVal.toLowerCase() )
-			       return true;
-			    else
-			       return false;
-			}
-
-			// Update the Encrypted textarea
-			function setEncrypted(s){
-				$('#encrypted').val(s);
-			}
-
-			// Update the Unencrypted textarea
-			function setUnencrypted(s){
-				$('#unencrypted').val(s);
-			}
-
-			// Clear both textareas
-			function clearAreas(){
-				$('#unencrypted').val('');
-				$('#encrypted').val('');
-			}
-
-		</script>
 	</body>
 
 </html>
